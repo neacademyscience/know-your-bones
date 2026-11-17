@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<title>Bone Atlas • Level 1 | Anatomy Lab</title>
+<style>
+:root{--bg:#f3f6f4;--ink:#233441;--muted:#61717d;--line:#dce5e3;--green:#176d61;--green2:#edf7f3;--paper:#fff;--cream:#fff9ed;--shadow:0 16px 40px rgba(31,61,65,.085)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(135deg,#f5f7f3,#edf3f4);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button{font:inherit;cursor:pointer}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #efaf45;outline-offset:3px}h1,h2,h3,p{margin:0}button:disabled{cursor:not-allowed;opacity:.55}
+.app{max-width:1380px;margin:auto;padding:21px 26px 50px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:20px}.brand{display:flex;align-items:center;gap:13px}.brandmark{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;background:#205c57;color:white;font-size:23px;box-shadow:0 5px 12px #194d3c25}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-weight:800;color:var(--green);font-size:10px;margin-bottom:4px}.top h1{font-family:Georgia,serif;font-size:29px;font-weight:700;letter-spacing:-.02em}.topnote{color:var(--muted);font-size:12px;text-align:right}.topnote b{display:block;color:var(--ink);font-size:13px;margin-bottom:3px}
+.levels{display:flex;gap:10px;margin-bottom:16px}.level{flex:1;text-align:left;background:white;border:1px solid #dce5e2;border-radius:12px;padding:13px 15px;display:flex;gap:12px;align-items:center;color:var(--muted);min-width:0}.level b{color:var(--ink)}.level small{display:block;font-size:11px;line-height:1.4;margin-top:3px}.level .number{width:33px;height:33px;border-radius:50%;background:#f2f4f3;display:grid;place-items:center;flex:0 0 auto;font-weight:800}.level.active{border-color:#68ad9b;box-shadow:inset 0 0 0 1px #a3d7ca;background:#f6fffa}.level.active .number{background:#226a5e;color:white}.level.future{opacity:.74}
+.layout{display:grid;grid-template-columns:minmax(0,1.47fr) minmax(320px,.9fr);gap:17px;align-items:start}.panel{border:1px solid var(--line);background:var(--paper);border-radius:19px;box-shadow:var(--shadow);overflow:hidden}.atlasbar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 19px;border-bottom:1px solid var(--line)}.heading{font-size:16px;font-weight:800}.sub{font-size:12px;color:var(--muted);margin-top:4px}.pillset{background:#f0f4f2;border-radius:11px;padding:3px;display:flex;gap:3px}.pillset button{border:0;background:transparent;padding:8px 12px;border-radius:8px;color:#566b70;font-size:12px;font-weight:750}.pillset button.active{color:#fff;background:#216c60;box-shadow:0 2px 5px #24614c20}.drawing{position:relative;min-height:575px;display:flex;justify-content:center;background:radial-gradient(circle at 50% 39%,#fff 6%,#f9fbfa 64%,#f2f7f3 100%);overflow:hidden}.drawing:after{content:"";pointer-events:none;position:absolute;inset:15px;border:1px solid #e8eeeb;border-radius:16px}.figure{height:690px;width:min(100%,720px);padding:12px 12px;display:block;touch-action:manipulation}.guide{stroke:#dfe9e5;stroke-width:1;stroke-dasharray:4 7;pointer-events:none}.bone-group{cursor:pointer;transition:filter .15s}.bone-group .bone-shape{fill:#fffaf0;stroke:#6d7a78;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round;transition:fill .22s,stroke .22s}.bone-group .bone-stroke{fill:none;stroke:#fffaed;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;transition:stroke .22s}.bone-group .bone-stroke-outline{fill:none;stroke:#76837e;stroke-width:12;stroke-linecap:round;stroke-linejoin:round}.bone-group .bone-detail{fill:none;stroke:#8b9992;stroke-width:1.05;stroke-linecap:round;pointer-events:none}.bone-group:hover:not(.found) .bone-shape,.bone-group:focus-visible:not(.found) .bone-shape{fill:#f3e5c4;stroke:#be9169}.bone-group:hover:not(.found) .bone-stroke,.bone-group:focus-visible:not(.found) .bone-stroke{stroke:#f3e5c4}.bone-group.study:not(.future) .bone-shape{fill:var(--tone);opacity:.83}.bone-group.study:not(.future) .bone-stroke{stroke:var(--tone)}.bone-group.found .bone-shape{fill:var(--tone);stroke:#536266}.bone-group.found .bone-stroke{stroke:var(--tone)}.bone-group.found{filter:drop-shadow(0px 2px 2px rgba(21,56,53,.10))}.bone-group.preview .bone-shape{fill:var(--tone)}.bone-group.preview .bone-stroke{stroke:var(--tone)}.bone-group.preview{filter:drop-shadow(0 0 5px var(--tone))}.bone-group.wrong{animation:wrong .34s ease}.bone-group.wrong .bone-shape{fill:#f8d5d2}.bone-group.wrong .bone-stroke{stroke:#f8d5d2}@keyframes wrong{0%,100%{transform:translateX(0)}33%{transform:translateX(-2px)}66%{transform:translateX(2px)}}
+.bone-group .dental-crown{fill:#fff9ea;stroke:#8a958e;stroke-width:.68;stroke-linejoin:round;pointer-events:visiblePainted}.bone-group .dental-crown:hover{fill:#fff4d4}.illustration-details{pointer-events:none}.illustration-details path{fill:none;stroke:#87948b;stroke-width:1;stroke-linecap:round}.illustration-details path.aperture{fill:#52636b;stroke:#879591;stroke-width:1.2}.legend-float{pointer-events:none}.legend-float rect{fill:#fff;stroke:var(--line);stroke-width:1}.legend-float text{font-family:ui-sans-serif,system-ui,sans-serif;font-weight:750;font-size:15px;fill:#20363d}.legend-float path{fill:none;stroke-width:2.5;stroke-linecap:round}.legend-float circle{stroke:#fff;stroke-width:2}
+.viewbar{padding:12px 16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-top:1px solid var(--line);background:#fcfdfb}.viewbar label{font-size:11px;color:#687b7d;font-weight:800;letter-spacing:.05em;margin-right:4px}.viewbar button{background:white;color:#566b6b;border:1px solid #d6e2dc;border-radius:20px;padding:6px 11px;font-size:11px;font-weight:700}.viewbar button.selected{background:#e5f4ee;color:#1a6b5a;border-color:#86baaa}.captionline{padding:0 18px 13px;color:#6b7f82;font-size:11px;line-height:1.5}
+.sidebar{display:grid;gap:15px}.modebar{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px}.modebar button{border:1px solid #dbe3e2;background:#f9fbf9;border-radius:11px;padding:12px 10px;color:#4b6268;font-weight:800;font-size:13px}.modebar button.active{background:#e2f4ec;border-color:#95cab8;color:#155f52}
+.question{padding:20px 20px 21px}.step{color:#7c8d93;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:850}.question h2{font-family:Georgia,serif;font-size:29px;line-height:1.17;margin:10px 0 11px}.question h2 span{color:#166e60}.question .help{font-size:13px;line-height:1.6;color:#6c7c85;min-height:43px}.status{margin-top:16px;display:flex;align-items:center;gap:9px;font-size:12px;color:#496a62;font-weight:700;min-height:30px}.dot{width:9px;height:9px;background:#95b8a6;border-radius:100%;flex:0 0 auto}.status.error .dot{background:#c88576}.status.success .dot{background:#25a175}.progress{height:8px;border-radius:20px;background:#e9efeb;overflow:hidden;margin-top:14px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#6db4a3,#1e7667);transition:width .4s ease}.footrow{margin-top:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.primary{background:#226d61;color:white;border:none;border-radius:10px;padding:11px 15px;font-size:12px;font-weight:800}.secondary{background:#fff;color:#536b6d;border:1px solid #cbdad4;border-radius:10px;padding:10px 13px;font-size:12px;font-weight:750}.completion{display:none;border-top:1px solid var(--line);padding-top:16px;margin-top:16px}.completion.show{display:block}.completion h3{font-size:16px;color:#176d61;margin-bottom:6px}.completion p{font-size:13px;color:#60727b;line-height:1.5}
+.listhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 17px 11px;border-bottom:1px solid #edf0ee}.listhead strong{font-size:13px}.count{border-radius:999px;background:#f0f5f2;color:#49796d;font-size:11px;padding:5px 9px;font-weight:800}.key{padding:13px 16px 15px;display:grid;grid-template-columns:1fr 1fr;column-gap:7px;row-gap:7px;max-height:336px;overflow:auto}.key button{display:flex;align-items:center;min-width:0;text-align:left;gap:8px;background:#fafbf9;border:1px solid #ecf0eb;border-radius:9px;padding:8px 8px;font-size:11px;font-weight:700;color:#344d4e}.key button:hover{border-color:#a4c8bb}.key .swatch{height:11px;width:11px;flex:0 0 11px;border-radius:3px;background:var(--tone);border:1px solid #00000012}.key button:disabled{opacity:.5}.key.empty{display:block;color:#77898d;font-size:12px;line-height:1.6}.teacher-note{font-size:12px;line-height:1.6;color:#596e70;padding:17px 19px}.teacher-note b{color:#1c554e}
+footer{margin:16px 2px 0;color:#7a8d8f;font-size:11px;line-height:1.7;display:flex;justify-content:space-between;gap:16px}footer a{color:#176d61}
+@media(max-width:880px){.app{padding:14px}.layout{grid-template-columns:1fr}.sidebar{grid-template-columns:1fr 1fr;align-items:start}.quizcol{display:grid;gap:15px}.figure{height:650px}.drawing{min-height:550px}.topnote{display:none}}@media(max-width:610px){.top h1{font-size:23px}.level{padding:8px;gap:7px}.level small{font-size:9px}.level .number{width:27px;height:27px}.layout,.sidebar{display:block}.sidebar>*{margin-top:12px}.figure{height:555px}.drawing{min-height:480px}.question h2{font-size:24px}.key{max-height:none}.top{margin-bottom:14px}footer{display:block}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top"><div class="brand"><div class="brandmark" aria-hidden="true">✦</div><div><div class="eyebrow">Anatomy Lab · Interactive Atlas</div><h1>Know Your Bones</h1></div></div><div class="topnote"><b>The Skeletal System</b>Explore · Identify · Color</div></header>
+<nav class="levels" aria-label="Learning levels">
+ <div class="level active" aria-current="step"><span class="number">01</span><span><b>Foundations</b><small>22 targets · find the bone</small></span></div>
+ <div class="level future" title="Planned for the next release"><span class="number">02</span><span><b>Intermediate</b><small>~50 targets · multiple choice · score · coming next</small></span></div>
+ <div class="level future" title="Planned for a later release"><span class="number">03</span><span><b>Above &amp; Beyond</b><small>~100 targets · type the name · coming later</small></span></div>
+</nav>
+<div class="layout">
+<section class="panel" aria-label="Interactive skeletal illustration"><div class="atlasbar"><div><div class="heading">Human skeleton</div><div class="sub">Anterior view · refined interactive SVG</div></div><div class="pillset"><button id="viewQuiz" class="active" aria-pressed="true">Quiz</button><button id="viewStudy" aria-pressed="false">Study</button></div></div>
+<div class="drawing" id="drawing"><svg id="skeleton" class="figure" viewBox="0 0 540 1090" role="group" aria-label="Clickable skeletal system, front view" xmlns="http://www.w3.org/2000/svg"><title>Interactive skeletal diagram</title><g id="boneLayer"></g><g id="extraDetails" class="illustration-details"></g><g id="activeCallout" class="legend-float"></g></svg></div>
+<div class="viewbar" aria-label="Zoom to anatomical region"><label>FOCUS</label><button data-view="full" class="selected">Whole body</button><button data-view="upper">Upper body</button><button data-view="hands">Hands</button><button data-view="lower">Legs &amp; pelvis</button><button data-view="feet">Feet</button></div><div class="captionline">Click either side for paired bones. No left/right distinction at this level. Zoom in for smaller structures.</div></section>
+<div class="sidebar">
+<div class="quizcol">
+<section class="panel"><div class="modebar"><button id="quizMode" class="active" aria-pressed="true">✦ Find the bone</button><button id="studyMode" aria-pressed="false">◈ Study mode</button></div><div class="question" aria-live="polite"><div class="step" id="stepLabel">LEVEL 1 · QUESTION 1 OF 22</div><h2 id="prompt">Find the <span>femur</span>.</h2><p id="help" class="help">Click the matching bone on the diagram. A correct answer colors it in.</p><div id="status" class="status"><span class="dot"></span><span id="statusText">Ready when you are.</span></div><div class="progress"><span id="progressFill"></span></div><div class="footrow"><button class="secondary" id="hintBtn">Give me a hint</button><button class="secondary" id="restartBtn">Start over</button><button class="primary" id="nextBtn" style="display:none">Next bone →</button></div><div id="completion" class="completion"><h3>Beautiful work — all 22 found!</h3><p>You have colored the entire Level 1 collection. Switch to Study Mode to review the completed atlas, or start again for a new question order.</p></div></div></section>
+</div>
+<section class="panel"><div class="listhead"><strong id="keyHeading">Your color key</strong><span id="keyCount" class="count">0 / 22</span></div><div class="key empty" id="colorKey">As you identify bones, their color-coordinated names will appear here.</div></section>
+<section class="panel teacher-note"><b>A note about this first prototype</b><br/>The revised illustration uses individually clickable bone shapes and a more detailed skull, cervical vertebrae, rib cage, pelvis, hands, and feet. Level 2 will add dedicated detail views; this introductory plate is not a clinical atlas.</section>
+</div>
+</div>
+<footer><span>Educational prototype · Level 1 · Original SVG artwork · works offline</span><span>Keyboard: <b>Tab</b> to a bone, then <b>Enter</b> or <b>Space</b> to choose it.</span></footer>
+</main>
+<script>
+"use strict";
+/* Modular course data. Additional levels can reuse this shape and the quiz engine.
+   The `id` associates a name, color, region hint and SVG group; no right/left duplication. */
+const BONES = [
+ {id:'cranium',name:'cranium',color:'#6597c4',hint:'the braincase and fixed upper portion of the skull',at:[269,68]},
+ {id:'mandible',name:'mandible',color:'#9677ae',hint:'the movable lower jaw',at:[269,168]},
+ {id:'clavicle',name:'clavicle',color:'#cba15a',hint:'across the top of the chest, below the neck',at:[220,203]},
+ {id:'scapula',name:'scapula',color:'#5b9e84',hint:'the shoulder blade, partly visible near the upper ribs',at:[190,252]},
+ {id:'sternum',name:'sternum',color:'#d07890',hint:'the center of the upper chest',at:[271,267]},
+ {id:'ribs',name:'ribs',color:'#62adb9',hint:'forming the curved protective cage in the chest',at:[221,296]},
+ {id:'vertebrae',name:'vertebral column',color:'#9e81c1',hint:'the spine, running down the back of the torso',at:[272,391]},
+ {id:'hip',name:'coxal bone (hip bone)',color:'#cb9463',hint:'one of the two broad bones of the pelvic girdle',at:[218,466]},
+ {id:'sacrum',name:'sacrum',color:'#c286a1',hint:'the triangular bone at the base of the vertebral column',at:[270,487]},
+ {id:'humerus',name:'humerus',color:'#6f9bbf',hint:'the long bone between shoulder and elbow',at:[167,297]},
+ {id:'radius',name:'radius',color:'#8a7cba',hint:'the forearm bone on the thumb side',at:[127,462]},
+ {id:'ulna',name:'ulna',color:'#d98272',hint:'the forearm bone on the little-finger side',at:[147,462]},
+ {id:'carpals',name:'carpals',color:'#c48dab',hint:'the small bones of the wrist',at:[119,522]},
+ {id:'metacarpals',name:'metacarpals',color:'#79aa82',hint:'the long bones in the palm of the hand',at:[120,555]},
+ {id:'hand_phalanges',name:'hand phalanges',color:'#c6a052',hint:'the finger bones, beyond the knuckles',at:[115,598]},
+ {id:'femur',name:'femur',color:'#5b86b2',hint:'the very long bone in the thigh',at:[233,637]},
+ {id:'patella',name:'patella',color:'#d78f78',hint:'the kneecap',at:[229,758]},
+ {id:'tibia',name:'tibia',color:'#5a9e9b',hint:'the larger shin bone',at:[234,874]},
+ {id:'fibula',name:'fibula',color:'#a18bbf',hint:'the slender bone along the outside of the lower leg',at:[205,874]},
+ {id:'tarsals',name:'tarsals',color:'#d0a45d',hint:'the small bones near the heel and ankle',at:[224,997]},
+ {id:'metatarsals',name:'metatarsals',color:'#76a98a',hint:'the five long bones between the ankle and the toes',at:[208,1037]},
+ {id:'foot_phalanges',name:'foot phalanges',color:'#bc7fa7',hint:'the toe bones, beyond the metatarsals',at:[196,1066]}
+];
+const LEVELS={1:{kind:'find',questions:BONES.map(b=>b.id)},2:{kind:'find-and-choice',questions:null},3:{kind:'find-choice-and-type',questions:null}};
+const lookup=Object.fromEntries(BONES.map(b=>[b.id,b]));
+const svgNS='http://www.w3.org/2000/svg';
+const layer=document.getElementById('boneLayer');
+function node(tag,attrs={},parent=layer){const el=document.createElementNS(svgNS,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));parent.appendChild(el);return el}
+const groups={};
+function bone(id){if(!groups[id]){const g=node('g',{class:'bone-group','data-bone':id,tabindex:'0',role:'button','aria-label':lookup[id]?.name||id});if(lookup[id])g.style.setProperty('--tone',lookup[id].color);groups[id]=g}return groups[id]}
+function shape(id,d,mirrored=false){const g=bone(id);node('path',{d,class:'bone-shape','fill-rule':'evenodd'},g);if(mirrored){const flip=node('g',{transform:'translate(540 0) scale(-1 1)'},g);node('path',{d,class:'bone-shape','fill-rule':'evenodd'},flip)}}
+function line(id,d,w=9,mirrored=false){const g=bone(id);function one(parent){node('path',{d,class:'bone-stroke-outline',style:`stroke-width:${w+2}px`},parent);node('path',{d,class:'bone-stroke',style:`stroke-width:${w}px`},parent)}one(g);if(mirrored)one(node('g',{transform:'translate(540 0) scale(-1 1)'},g))}
+function detail(d,mirror=false){node('path',{d},document.getElementById('extraDetails'));if(mirror)node('path',{d,transform:'translate(540 0) scale(-1 1)'},document.getElementById('extraDetails'))}
+/* Level 1 anatomical plate: each target is a separate interactive SVG group.
+   Original stylized anatomical illustration, not a traced or embedded raster graphic.
+   Paired bones use mirrored paths; fingers and toes are individually drawn within groups.
+   Later levels can add detailed insets without changing the question engine. */
+function smallBone(id,x1,y1,x2,y2,width=6,mirrored=false){
+ // Tapered outline with flared articular ends: more legible than straight "stick" strokes.
+ const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;
+ const p=(x,y,w)=>`${(x+nx*w).toFixed(2)} ${(y+ny*w).toFixed(2)}`;
+ const a=p(x1,y1,width*.55),b=p(x1+dx*.20,y1+dy*.20,width*.35),
+  c=p(x1+dx*.78,y1+dy*.78,width*.33),d=p(x2,y2,width*.51),
+  e=p(x2,y2,-width*.51),f=p(x1+dx*.78,y1+dy*.78,-width*.33),
+  g=p(x1+dx*.20,y1+dy*.20,-width*.35),h=p(x1,y1,-width*.55);
+ shape(id,`M${a} Q${b} ${c} Q${d} ${d} Q${e} ${e} Q${f} ${g} Q${h} ${a} Z`,mirrored);
+}
+function buildSkeleton(){
+ const extras=document.getElementById('extraDetails');
+ const deco=(tag,attrs)=>node(tag,{...attrs,'pointer-events':'none'},extras);
+ // ---- The vertebral column: cervical, thoracic, and lumbar regions (one Level 1 target).
+ // Cervical vertebrae begin immediately beneath the skull base (C1/atlas), behind the mandible.
+ // Projected behind the jaw, sternum, and ribs; bodies widen toward the lumbar region.
+ for(let i=0;i<24;i++){
+  const cervical=i<7, thoracic=i>=7&&i<19;
+  const y=cervical?148+i*10.05:thoracic?219+(i-7)*11.65:365+(i-19)*16.25;
+  const w=cervical?9.4+i*.5:thoracic?12+(i-7)*.24:16+(i-19)*.48;
+  const h=cervical?9.2:thoracic?9.1:12.1;
+  shape('vertebrae',`M${270-w/2} ${y} Q270 ${y-3.3} ${270+w/2} ${y} L${270+w/2+1.5} ${y+h*.7} Q270 ${y+h+2.5} ${270-w/2-1.5} ${y+h*.7} Z`);
+  // transverse processes and a small central spinous-process indication
+  detail(`M${270-w/2-1} ${y+3} l-5 3 M${270+w/2+1} ${y+3} l5 3 M269 ${y+4} l2 0`);
+ }
+ // Sacrum, with paired sacral foramina and taper to coccyx.
+ shape('sacrum','M249 452 Q270 444 291 452 L287 475 L280 505 Q273 519 270 522 Q267 519 260 505 L253 475 Z');
+ detail('M255 462 Q270 459 285 462 M257 473 Q270 478 283 473 M260 486 Q270 490 280 486 M264 503 L276 503');
+ for(const [x,y] of [[261,471],[279,471],[264,486],[276,486],[267,499],[273,499]])deco('ellipse',{cx:x,cy:y,rx:2.2,ry:3.0,fill:'#78867f',stroke:'none',opacity:'.74'});
+ // Ilium, ischium and pubis form a single coxal bone on each side; large foramina are cut out.
+ shape('hip','M250 456 C236 437 210 433 196 442 C182 449 184 468 194 480 L210 498 Q205 510 207 519 Q209 533 225 538 Q237 540 247 528 L268 528 L267 516 L251 511 Q257 489 256 476 Q257 464 250 456 Z M214 504 Q217 493 232 494 Q243 496 242 508 Q238 524 227 529 Q216 531 214 518 Q211 510 214 504 Z',true);
+ detail('M194 457 Q203 442 226 448 Q243 450 248 461 M196 470 Q204 481 214 485 M242 466 Q237 485 247 498 M234 529 Q244 519 264 521',true);
+ // Posterior shoulder blades are partially visible beyond the ribs in this anterior view.
+ shape('scapula','M203 208 Q188 203 180 213 L175 244 Q181 261 193 277 L216 241 Q218 229 217 217 Z',true);
+ detail('M181 227 Q193 236 214 228 M185 248 Q199 245 207 233',true);
+ // True rib arcs rather than a stack of identical horizontal bands.
+ for(let i=0;i<12;i++){
+  const yi=230+i*12.45;
+  const isFloating=i>=10;
+  const reach=[58,63,70,76,79,80,78,74,68,62,47,37][i];
+  const outer=270-reach;
+  const lift=[8,8,8,8,7,5,4,3,2,0,-2,-3][i];
+  const endX=isFloating?outer+18:255+(i>6?(i-6)*3:0);
+  const endY=yi+[8,9,11,14,17,20,25,29,32,35,27,23][i];
+  const d=i<7
+    ? `M261 ${yi} C${242-i*.3} ${yi+lift-13} ${outer+6} ${yi-16} ${outer} ${yi+6} C${outer-2} ${yi+25} ${outer+19} ${yi+35} ${endX} ${endY}`
+    : i<10
+    ? `M261 ${yi} C244 ${yi-9} ${outer+5} ${yi-14} ${outer} ${yi+5} C${outer-4} ${yi+20} ${outer+7} ${yi+24} ${outer+19} ${yi+28}`
+    : `M261 ${yi} C248 ${yi+1} ${outer+8} ${yi+11} ${outer-8} ${yi+24}`;
+  line('ribs',d,i<2?7.7:i<10?7.1:5.1,true);
+ }
+ // Sternum with manubrium, long body, and xiphoid process.
+ shape('sternum','M261 213 Q270 208 279 213 L281 227 L279 241 L278 304 L272 318 L268 318 L262 304 L261 241 L259 227 Z');
+ detail('M261 230 Q270 234 279 230 M263 244 L278 244 M263 298 L278 298 M269 309 L272 309');
+ // Clavicles curve from sternum to acromia, with articulated ends.
+ line('clavicle','M259 200 C246 190 234 195 222 195 C209 196 204 186 190 191',9.2,true);
+ shape('clavicle','M186 187 Q191 180 197 189 L197 197 Q191 203 186 196 Z',true);
+ detail('M198 190 Q217 205 236 197',true);
+ // ---- Skull (anterior): taller braincase, tapered cheeks, realistic orbits and nasal cavity.
+ // The cranium group contains the maxilla and other fixed craniofacial bones at Level 1.
+ shape('cranium','M270 30 C244 29 225 46 225 72 Q223 87 229 104 L233 118 Q232 132 240 140 Q250 151 270 153 Q291 152 300 140 Q308 132 307 118 L312 104 Q318 86 315 72 C314 46 295 29 270 30 Z');
+ // Temporal indentations, glabella and brow ridges.
+ detail('M231 86 Q237 78 247 82 M293 82 Q304 77 309 86 M237 94 Q249 89 260 95 M280 95 Q291 89 303 94');
+ detail('M269 34 Q271 53 270 74 M235 66 Q230 80 234 95 M304 65 Q311 79 308 94');
+ // Orbital apertures: angular irregular contours; hollow rather than cartoon "eyes".
+ deco('path',{class:'aperture',d:'M235 100 Q239 89 251 90 Q263 92 262 105 Q261 118 249 119 Q238 117 235 108 Z',fill:'#52636b',stroke:'#7a8883','stroke-width':1.6});
+ deco('path',{class:'aperture',d:'M305 100 Q301 89 289 90 Q277 92 278 105 Q279 118 291 119 Q302 117 305 108 Z',fill:'#52636b',stroke:'#7a8883','stroke-width':1.6});
+ // Nose aperture and nasal bones.
+ deco('path',{class:'aperture',d:'M268 112 Q266 119 263 126 Q262 134 269 137 Q276 134 277 126 Q274 119 272 112 Z',fill:'#52636b',stroke:'#7a8883','stroke-width':1.1});
+ detail('M268 96 Q270 104 272 111 M239 120 Q250 126 256 122 M301 120 Q290 126 284 122');
+ // Malar arches and maxillary features, with tiny individual upper tooth crowns.
+ detail('M233 115 Q232 127 241 130 L252 133 M307 115 Q308 127 299 130 L288 133 M242 137 Q253 139 270 139 Q287 139 298 137');
+ for(let i=0;i<12;i++){
+  const x=246+i*4.05,y=141+Math.abs(i-5.5)*.28;
+  deco('rect',{x:x.toFixed(1),y:y.toFixed(1),width:3.8,height:5.8,rx:.7,fill:'#fff7e7',stroke:'#8b938c','stroke-width':.65});
+ }
+ // Lower jaw: a continuous, U-shaped mandibular body and ascending rami.
+ // The dental arcade is rooted IN the mandibular alveolar border, not floating below the upper teeth.
+ shape('mandible','M234 132 Q232 149 241 162 Q251 177 262 182 Q270 186 278 182 Q289 177 299 162 Q308 149 306 132 L299 136 Q297 149 290 153 Q280 159 275 160 Q270 161 265 160 Q260 159 250 153 Q243 149 241 136 Z');
+ detail('M239 141 Q241 153 250 161 M301 141 Q299 153 290 161 M254 174 Q270 183 286 174');
+ // Twelve small lower tooth crowns. Every crown overlaps the alveolar ridge and is
+ // inside the mandible's clickable group, while remaining ivory in Study Mode.
+ const lowerJaw=bone('mandible');
+ for(let i=0;i<12;i++){
+   const x=247.9+i*4.02;
+   const ridge=160.1-0.25*Math.abs(x-270);
+   const top=ridge-5.7;
+   const dx=3.7;
+   const tooth=`M${x.toFixed(2)} ${top.toFixed(2)} Q${(x+dx/2).toFixed(2)} ${(top-1.0).toFixed(2)} ${(x+dx).toFixed(2)} ${top.toFixed(2)} L${(x+dx-0.25).toFixed(2)} ${(ridge+1.25).toFixed(2)} Q${(x+dx/2).toFixed(2)} ${(ridge+1.65).toFixed(2)} ${(x+0.25).toFixed(2)} ${(ridge+1.25).toFixed(2)} Z`;
+   node('path',{d:tooth,class:'dental-crown'},lowerJaw);
+ }
+ // ---- Upper limbs: proximal epiphyses, long diaphyses, and distal condyles.
+ shape('humerus','M175 215 Q163 210 156 220 Q151 231 156 242 L156 257 Q155 278 151 299 L140 350 Q135 365 142 375 Q153 386 164 372 L166 353 L181 277 Q191 243 184 225 Q181 218 175 215 Z',true);
+ detail('M163 224 Q174 219 180 229 M164 256 Q161 299 149 349 M143 369 Q151 375 161 365',true);
+ // Radius is lateral (thumb side), flares toward the wrist; ulna forms most of the elbow.
+ shape('radius','M147 384 Q141 382 137 390 L133 410 L115 484 L108 512 Q111 520 119 520 L128 511 L129 493 L149 417 Q154 392 147 384 Z',true);
+ shape('ulna','M155 382 Q150 379 146 389 L142 412 L136 457 L133 501 Q133 514 141 515 L147 508 L147 463 L160 402 Q163 388 155 382 Z',true);
+ detail('M145 400 L124 486 M153 399 L141 489',true);
+ // Eight wrist bones, in two rows, with independent surfaces but a shared Level 1 label.
+ for(const [x,y,rx,ry] of [[112,521,4.4,5.9],[122,519,5.0,5.5],[133,518,5.3,6.3],[143,518,4.5,5.7],
+                               [108,533,4.6,5.0],[119,531,5.2,5.3],[131,531,5.0,5.1],[142,529,4.8,5.1]]){
+  shape('carpals',`M${x-rx} ${y} Q${x-rx} ${y-ry} ${x} ${y-ry} Q${x+rx} ${y-ry} ${x+rx} ${y} Q${x+rx} ${y+ry} ${x} ${y+ry} Q${x-rx} ${y+ry} ${x-rx} ${y} Z`,true);
+ }
+ // Five metacarpals: distinct tapered bones, not a single fused hand shape.
+ const handRays=[[109,539,94,558,4.6],[113,539,107,576,5.3],[122,537,119,580,5.6],[133,537,132,577,5.4],[142,536,146,567,4.8]];
+ for(const [x1,y1,x2,y2,w] of handRays)smallBone('metacarpals',x1,y1,x2,y2,w,true);
+ // Three jointed phalanges per finger, two in the thumb; all clickable as one target.
+ const fingerChains=[
+  [[107,578],[103,594],[100,606],[97,614]],
+  [[119,581],[117,600],[116,612],[115,620]],
+  [[132,578],[134,594],[135,606],[135,614]],
+  [[146,569],[151,585],[153,596],[154,602]],
+  [[93,560],[86,573],[83,582]]
+ ];
+ for(const pts of fingerChains)for(let j=0;j<pts.length-1;j++){
+  const a=pts[j],b=pts[j+1];smallBone('hand_phalanges',a[0],a[1],b[0],b[1],j===0?4.8:3.9,true);
+ }
+ // ---- Lower limbs, including anatomical joint end-shapes.
+ // Femoral heads and necks point medially; condyles broaden at the knee.
+ shape('femur','M241 514 Q246 509 246 517 Q245 525 237 529 L232 539 Q227 543 230 558 L228 588 L219 674 L213 716 Q209 729 214 737 Q219 744 228 741 L237 735 Q242 729 238 717 L235 693 L245 577 Q250 540 242 528 Q237 522 241 514 Z',true);
+ shape('femur','M248 508 Q240 503 234 509 Q228 515 233 522 Q239 527 246 521 Q252 514 248 508 Z',true);
+ detail('M236 550 Q232 613 220 688 M217 730 Q226 738 234 728',true);
+ shape('patella','M222 746 Q228 741 235 747 Q241 755 239 765 Q234 773 227 771 Q221 766 220 756 Z',true);
+ detail('M224 749 Q231 745 237 752 M225 766 Q231 769 236 763',true);
+ // Tibia is the load-bearing medial shin bone and has the prominent medial malleolus.
+ shape('tibia','M223 779 Q232 775 241 782 L242 805 L239 843 L238 928 L240 973 Q237 985 226 984 L221 976 L223 947 L221 841 L218 804 Q217 787 223 779 Z',true);
+ shape('fibula','M213 786 Q208 780 205 788 L202 806 L201 872 L198 940 L195 975 Q197 986 205 983 L211 974 L208 947 L211 859 L217 809 Q219 793 213 786 Z',true);
+ detail('M228 810 Q235 864 230 949 M207 821 Q203 892 201 959',true);
+ // Seven tarsals, including the calcaneus/talus region, drawn as fitted irregular shapes.
+ const tarsalPaths=[
+  'M219 978 Q225 969 234 973 L240 982 L238 992 L228 997 L217 991 Z',
+  'M206 980 Q214 973 221 979 L220 991 L210 995 L203 990 Z',
+  'M222 995 Q230 991 239 994 L242 1005 L232 1012 L222 1005 Z',
+  'M205 996 Q211 990 219 995 L222 1005 L214 1012 L204 1007 Z',
+  'M208 1011 Q215 1008 220 1014 L215 1024 L206 1022 Z',
+  'M220 1010 Q228 1005 233 1013 L228 1023 L218 1022 Z',
+  'M232 1008 Q239 1003 245 1010 L241 1020 L230 1020 Z'
+ ];
+ for(const d of tarsalPaths)shape('tarsals',d,true);
+ // Five metatarsals fan forward from the midfoot; every bone has its own head.
+ const footRays=[
+  [[207,1019],[184,1048],5.2],
+  [[214,1018],[195,1056],5.0],
+  [[223,1018],[207,1060],4.8],
+  [[233,1016],[220,1056],4.8],
+  [[241,1013],[234,1047],5.2]
+ ];
+ for(const [a,b,w] of footRays)smallBone('metatarsals',a[0],a[1],b[0],b[1],w,true);
+ // Proximal and distal phalanges in the hallux, three segments in the other toes.
+ const toes=[
+  [[184,1050],[179,1059],[176,1066],[174,1070]],
+  [[195,1058],[190,1070],[188,1078],[187,1083]],
+  [[207,1062],[205,1073],[205,1081],[204,1085]],
+  [[220,1058],[220,1069],[220,1077],[220,1081]],
+  [[234,1049],[238,1063],[240,1074]]
+ ];
+ for(const chain of toes)for(let i=0;i<chain.length-1;i++){
+  const a=chain[i],b=chain[i+1];smallBone('foot_phalanges',a[0],a[1],b[0],b[1],i===0?4.5:3.6,true);
+ }
+}
+buildSkeleton();
+const state={mode:'quiz',view:'full',questions:[],index:0,found:new Set(),selected:null,awaiting:false,misses:0,complete:false};
+const views={full:'0 0 540 1090',upper:'80 28 380 500',hands:'45 352 450 300',lower:'120 423 300 637',feet:'140 952 260 138'};
+const $=id=>document.getElementById(id);
+function shuffle(list){const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function current(){return lookup[state.questions[state.index]]}
+function setStatus(text,type=''){ $('statusText').textContent=text; $('status').className='status '+type }
+function focusView(view){state.view=view; $('skeleton').setAttribute('viewBox',views[view]); document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('selected',b.dataset.view===view));renderCallout()}
+function setMode(mode){state.mode=mode;document.querySelectorAll('#quizMode,#viewQuiz').forEach(el=>{el.classList.toggle('active',mode==='quiz');el.setAttribute('aria-pressed',mode==='quiz')});document.querySelectorAll('#studyMode,#viewStudy').forEach(el=>{el.classList.toggle('active',mode==='study');el.setAttribute('aria-pressed',mode==='study')});render()}
+function restart(){const tiers=[['cranium','femur','humerus','tibia','hip','ribs','vertebrae','scapula','clavicle','sternum'],['mandible','sacrum','radius','ulna','fibula','patella'],['carpals','metacarpals','hand_phalanges','tarsals','metatarsals','foot_phalanges']];state.questions=tiers.flatMap(shuffle);state.index=0;state.found.clear();state.selected=null;state.awaiting=false;state.misses=0;state.complete=false;setMode('quiz');focusView('full');render()}
+function reveal(id){state.found.add(id);state.selected=id;state.awaiting=true;const b=lookup[id];setStatus(`Yes — ${b.name}. Its matching color is now in your key.`,'success');render();}
+function next(){if(!state.awaiting)return;state.awaiting=false;state.misses=0;state.selected=null;state.index++;if(state.index>=state.questions.length){state.complete=true;state.index=state.questions.length-1;setStatus('You identified all 22 structures!','success')}render()}
+function flashMiss(id){const g=groups[id];if(!g)return;g.classList.remove('wrong');void g.getBoundingClientRect();g.classList.add('wrong');setTimeout(()=>g.classList.remove('wrong'),390)}
+function selectBone(id){if(state.mode==='study') {state.selected=id;render();return;}if(state.complete||state.awaiting)return;
+ const b=current();if(!b)return;
+ if(id===b.id){reveal(id);return;}
+ flashMiss(id);state.misses++;
+ setStatus(state.misses===1?'Not quite. Look again — you can try as many times as you like.':'Not this one. Use the hint if you like.','error');
+}
+function showHint(){const b=current();if(!b||state.mode==='study'||state.complete)return;setStatus(`Hint: look for ${b.hint}.`)}
+function renderCallout(){const container=$('activeCallout');container.replaceChildren();const id=state.selected;if(!id||!(state.mode==='study'||state.found.has(id)))return;const b=lookup[id];if(!b)return;const [ax,ay]=b.at;
+ const isLeft=ax<270;const tx=isLeft?17:366;let ty=Math.max(23,Math.min(1051,ay-30));if(state.view!=='full'){const vb=views[state.view].split(' ').map(Number);const minY=vb[1],maxY=vb[1]+vb[3];ty=Math.max(minY+8,Math.min(maxY-41,ay-30))}
+ const textSize=14;const label=b.name.length>20?b.name.substring(0,24):b.name;const w=Math.min(208,label.length*7.3+22); const x=isLeft?Math.max(4,tx):Math.min(528-w,tx);
+ // When zoomed, place tag close to the chosen bone so it stays within view.
+ let drawX=x;if(state.view!=='full'){const vb=views[state.view].split(' ').map(Number);drawX=Math.max(vb[0]+6,Math.min(vb[0]+vb[2]-w-6,ax+(isLeft?-w-30:30)))}
+ node('path',{d:`M${ax} ${ay} L${isLeft?drawX+w:drawX} ${ty+18}`,stroke:b.color},container);
+ node('circle',{cx:ax,cy:ay,r:5,fill:b.color},container);
+ node('rect',{x:drawX,y:ty,width:w,height:35,rx:8},container);
+ node('rect',{x:drawX+7,y:ty+8,width:6,height:19,rx:2,fill:b.color,stroke:'none'},container);
+ const t=node('text',{x:drawX+19,y:ty+23,'font-size':textSize},container);t.textContent=label;
+}
+function renderKey(){const key=$('colorKey');key.replaceChildren();const shown=state.mode==='study'?BONES:BONES.filter(b=>state.found.has(b.id));
+ $('keyHeading').textContent=state.mode==='study'?'Color-coded bone guide':'Your color key';$('keyCount').textContent=state.mode==='study'?`${BONES.length} bones`:`${state.found.size} / ${BONES.length}`;
+ if(!shown.length){key.className='key empty';key.textContent='As you identify bones, their color-coordinated names will appear here.';return}key.className='key';
+ for(const b of shown){const btn=document.createElement('button');btn.type='button';btn.style.setProperty('--tone',b.color);btn.title='Show this bone on the diagram';btn.innerHTML='<span class="swatch" aria-hidden="true"></span><span></span>';btn.lastChild.textContent=b.name;btn.addEventListener('click',()=>{state.selected=b.id;render();});key.appendChild(btn)}
+}
+function render(){for(const [id,g] of Object.entries(groups)){g.classList.toggle('found',state.found.has(id));g.classList.toggle('preview',state.mode==='study'&&state.selected===id);if(state.mode==='study'){g.classList.add('study');}else{g.classList.remove('study')}}
+ const pct=(state.found.size/BONES.length)*100;$('progressFill').style.width=`${pct}%`;
+ $('completion').classList.toggle('show',state.complete&&state.mode==='quiz');
+ $('hintBtn').style.display=state.mode==='study'||state.complete?'none':'';
+ $('nextBtn').style.display=state.mode==='quiz'&&state.awaiting&&!state.complete?'':'none';
+ if(state.mode==='study'){
+  $('stepLabel').textContent='STUDY MODE · COLOR REFERENCE';
+  $('prompt').innerHTML='Explore the <span>bones.</span>';
+  $('help').textContent='Click a bone or its color label to highlight it. The colors match the atlas key, like a coloring-book guide.';
+  setStatus(state.selected?`${lookup[state.selected]?.name||'Bone'} — ${lookup[state.selected]?.hint||'explore the diagram'}.`:'Choose any bone on the illustration or in the key.');
+ } else if(state.complete){
+  $('stepLabel').textContent='LEVEL 1 · COMPLETED';
+  $('prompt').innerHTML='Atlas <span>complete!</span>';
+  $('help').textContent='Every target is colored. Use Study Mode to explore the finished key or start a new round.';
+ } else {
+  $('stepLabel').textContent=`LEVEL 1 · QUESTION ${state.index+1} OF ${state.questions.length}`;
+  const b=current();$('prompt').replaceChildren(document.createTextNode('Find the '));const s=document.createElement('span');s.textContent=b.name+'.';$('prompt').appendChild(s);
+  $('help').textContent=state.awaiting?'Well done. Move on whenever you are ready.':'Click the matching bone on the diagram. A correct answer colors it in.';
+  if(!state.awaiting && state.misses===0)setStatus('Ready when you are.');
+ }
+ renderCallout();renderKey();
+}
+$('skeleton').addEventListener('click',e=>{const g=e.target.closest?.('[data-bone]');if(g)selectBone(g.getAttribute('data-bone'));else if(state.mode==='quiz'&&!state.complete&&!state.awaiting)setStatus('Click directly on a bone. Zoom in if the target is small.');});
+$('skeleton').addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const g=e.target.closest?.('[data-bone]');if(g){e.preventDefault();selectBone(g.getAttribute('data-bone'))}});
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>focusView(b.dataset.view)));
+$('hintBtn').addEventListener('click',showHint);$('restartBtn').addEventListener('click',restart);$('nextBtn').addEventListener('click',next);
+$('quizMode').addEventListener('click',()=>setMode('quiz'));$('viewQuiz').addEventListener('click',()=>setMode('quiz'));
+$('studyMode').addEventListener('click',()=>setMode('study'));$('viewStudy').addEventListener('click',()=>setMode('study'));
+restart();
+</script>
+</body></html>
